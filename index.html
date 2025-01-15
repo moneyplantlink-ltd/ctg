@@ -165,63 +165,85 @@
         <button type="submit">Submit</button>
     </form>
 
-    <div id="thankYouMessage">Thank you for your submission!</div>
+    <div id="thankYouMessage">Thank you for your valuable time!</div>
 
     <footer>
-        <p>Powered by Money Plant Link Pvt. Ltd. &copy; 2024</p>
+        <p>Powered by Money Plant Link Pvt. Ltd. &copy; 2025</p>
     </footer>
 
     <script>
-        const employeeData = {
-            '144': { name: 'Md. Rubel', zone: 'Head Office', mobile: '01958193400' },
-            '11765': { name: 'Md. Suzon', zone: 'Uttara-1', mobile: '01812345678' }
-        };
+    const employeeData = {
+        '144': { name: 'Md. Rubel', zone: 'Head Office', mobile: '01958193400' },
+        '11765': { name: 'Md. Suzon', zone: 'Uttara-1', mobile: '01812345678' }
+    };
 
-        const atmData = {
-            'ATM001': 'Banani Branch',
-            'ATM002': 'Gulshan-1 Branch',
-            'ATM003': 'Dhanmondi Branch'
-        };
+    const atmData = {
+        'ATM001': 'Banani Branch',
+        'ATM002': 'Gulshan-1 Branch',
+        'ATM003': 'Dhanmondi Branch'
+    };
 
-        document.getElementById('EmployeeID').addEventListener('input', function () {
-            const employeeId = this.value.trim();
-            const employee = employeeData[employeeId];
+    document.getElementById('EmployeeID').addEventListener('input', function () {
+        const employeeId = this.value.trim();
+        const employee = employeeData[employeeId];
 
-            document.getElementById('ExecutiveName').value = employee ? employee.name : '';
-            document.getElementById('Zone').value = employee ? employee.zone : '';
-            document.getElementById('MobileNumber').value = employee ? employee.mobile : '';
-        });
+        document.getElementById('ExecutiveName').value = employee ? employee.name : '';
+        document.getElementById('Zone').value = employee ? employee.zone : '';
+        document.getElementById('MobileNumber').value = employee ? employee.mobile : '';
+    });
 
-        document.getElementById('ATMCRMID').addEventListener('input', function () {
-            const atmId = this.value.trim();
-            document.getElementById('ATMLOCATION').value = atmData[atmId] || '';
-        });
+    document.getElementById('ATMCRMID').addEventListener('input', function () {
+        const atmId = this.value.trim();
+        document.getElementById('ATMLOCATION').value = atmData[atmId] || '';
+    });
 
-        document.getElementById('dataEntryForm').addEventListener('submit', async function (event) {
-            event.preventDefault();
+    document.getElementById('dataEntryForm').addEventListener('submit', async function (event) {
+        event.preventDefault();
 
-            const formData = new FormData(this);
+        const remarksField = document.getElementById('Remarks');
+
+        function submitForm() {
+            const formData = new FormData(document.getElementById('dataEntryForm'));
             const jsonData = Object.fromEntries(formData.entries());
 
-            try {
-                const response = await fetch('https://script.google.com/macros/s/AKfycbzxMEksLscaLAM7f1hnNxEzpkd0I7qZNrhOSmwpjwZKMI1gyIUSnEswjrKGdYZK2DQf/exec', {
-                    method: 'POST',
-                    body: new URLSearchParams(jsonData)
-                });
-
+            fetch('https://script.google.com/macros/s/AKfycbzxMEksLscaLAM7f1hnNxEzpkd0I7qZNrhOSmwpjwZKMI1gyIUSnEswjrKGdYZK2DQf/exec', {
+                method: 'POST',
+                body: new URLSearchParams(jsonData)
+            }).then(response => {
                 if (response.ok) {
                     document.getElementById('thankYouMessage').style.display = 'block';
-                    this.style.display = 'none';
+                    document.getElementById('dataEntryForm').style.display = 'none';
                 } else {
                     alert('Submission failed. Please try again.');
                 }
-            } catch (error) {
+            }).catch(error => {
                 console.error('Error:', error);
                 alert('An error occurred. Please try again later.');
-            }
-        });
+            });
+        }
 
-        document.getElementById('Date').value = new Date().toISOString().split('T')[0];
-    </script>
+        // জিওলোকেশন গ্রহণের চেষ্টা করা
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                const locationString = `Lat: ${latitude}, Long: ${longitude}`;
+                remarksField.value += `\nLocation: ${locationString}`;
+                submitForm();
+            }, function (error) {
+                console.error("Error getting location: ", error);
+                document.getElementById('formError').textContent = "Unable to retrieve location.";
+                submitForm();
+            });
+        } else {
+            console.error("Geolocation not supported by this browser.");
+            document.getElementById('formError').textContent = "Geolocation not supported by your browser.";
+            submitForm();
+        }
+    });
+
+    document.getElementById('Date').value = new Date().toISOString().split('T')[0];
+</script>
+
 </body>
 </html>

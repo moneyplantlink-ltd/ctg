@@ -505,7 +505,20 @@ footer .social-icons a:hover {
     <input type="text" id="ATMLOCATION" name="ATMLOCATION" placeholder="ATM Location" readonly />
 
     <label for="TypeOfCall">Type Of Call:</label>
-    <input type="text" id="TypeOfCall" name="TypeOfCall" placeholder="Type Of Call" required />
+        <select id="TypeOfCall" name="TypeOfCall" required>
+            <option value="">Select an option</option>
+            <option value="Cash Jam">Cash Jam</option>
+            <option value="Receive Paper">Receive Paper</option>
+            <option value="Down">Down</option>
+            <option value="Engineer Call">Engineer Call</option>
+            <option value="PM">PM</option>
+            <option value="Fast Load">Fast Load</option>
+            <option value="Last Load">Last Load</option>
+            <option value="Return">Return</option>
+            <option value="Manual Cash Jam">Manual Cash Jam</option>
+            <option value="ADC Call">ADC Call</option>
+            <option value="Other’s">Other’s</option>
+        </select>
 
     <label for="ATMOpenTime">ATM/CRM Open Time:</label>
     <input type="text" id="ATMOpenTime" name="ATMOpenTime" placeholder="HH:MM" required />
@@ -573,6 +586,10 @@ footer .social-icons a:hover {
       } else {
         document.getElementById('ATMLOCATION').value = '';
       }
+        onst inTime = document.getElementById('InTime').value;
+            const outTime = document.getElementById('OutTime').value;
+            const remarksField = document.getElementById('Remarks');
+            const personField = document.getElementById('Person').value;
     });
 
     // Form submission handler

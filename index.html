@@ -6,96 +6,462 @@
     <title>Money Plant Link Pvt. Ltd. FLM Call & Traveling Bill Management System</title>
     <style>
         /* Global Styles */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1f1c2c, #928dab); /* Dark elegant gradient */
+    color: #e0e0e0; /* Light gray for a subtle text contrast */
+    text-align: center;
+    padding: 20px;
+}
+
+/* Header Styles */
+header {
+    margin-top: 20px;
+}
+
+header img {
+    width: 350px;
+    height: auto;
+    margin-bottom: 10px;
+    animation: bounce 1.5s infinite; /* Bounce animation for logo */
+}
+
+/* Heading Styles */
+h1 {
+    color: #f1c40f; /* Bright yellow for the heading */
+    margin-top: 20px;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Form Styles */
+form {
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white for a modern look */
+    border-radius: 15px;
+    padding: 2em;
+    margin: 20px auto;
+    max-width: 600px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transition for hover effect */
+}
+
+form:hover {
+    transform: scale(1.02); /* Slight zoom effect on hover */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+/* Label Styles */
+label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #1abc9c; /* Soft teal for labels */
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Input, Select, and Textarea Styles */
+input[type="text"],
+input[type="date"],
+input[type="time"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd; /* Light gray border */
+    margin-bottom: 15px;
+    font-size: 16px;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Pulse Animation for Empty Fields */
+input:placeholder-shown,
+textarea:placeholder-shown,
+select:placeholder-shown {
+    animation: pulse 1.5s infinite; /* Continuous pulse animation for empty fields */
+    border-color: #e74c3c; /* Red border to indicate empty fields */
+}
+
+/* Keyframes for Pulse Animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Input Focus Styles */
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #1abc9c; /* Teal border on focus */
+    box-shadow: 0 0 5px rgba(26, 188, 156, 0.5); /* Teal glow effect */
+    outline: none; /* Remove default outline */
+}
+
+/* Button Styles */
+button {
+    background-color: #1abc9c; /* Teal button color */
+    color: #ffffff; /* White text */
+    padding: 12px 24px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transition for button */
+}
+
+button:hover {
+    background-color: #16a085; /* Darker teal on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    form {
+        padding: 1.5em;
+    }
+
+    label {
+        font-size: 16px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    textarea,
+    select {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 10px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    form {
+        padding: 1.2em;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 14px;
+    }
+}
+
+/* Bounce Animation for Image */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+        button {
+    background-color: #6f42c1; /* Purple color */
+    color: white; /* Text color */
+    padding: 12px 20px; /* Padding */
+    font-size: 1.2em; /* Font size */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: transform 0.5s; /* Smooth transition */
+}
+
+/* Hover effect */
+button:hover {
+    transform: rotate(10deg); /* Rotate on hover */
+}
+
+/* Active effect */
+button:active {
+    transform: rotate(-10deg); /* Rotate in opposite direction on click */
+}
+button {
+    background-color: #6f42c1; /* Purple color */
+    color: white; /* Text color */
+    padding: 12px 20px; /* Padding */
+    font-size: 1.2em; /* Font size */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: transform 0.5s; /* Smooth transition */
+}
+
+/* Hover effect */
+button:hover {
+    transform: rotate(10deg); /* Rotate on hover */
+}
+
+/* Active effect */
+button:active {
+    transform: rotate(-10deg); /* Rotate in opposite direction on click */
+}
+
+        footer {
+            background: #333;
+            padding: 8px;
+            color: #fff;
+            width: 100%;
+            text-align: center;
+        }
+        #thankYouMessage {
+            display: none;
+            margin-top: 20px;
+            color: #ff0000;
+            font-size: 3.2em;
+            position: relative;
+        }
+        .button-container {
+            margin: 20px;
+            text-align: center;
+        }
+        .button-container button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+        }
+        .modal-content button {
+            margin-top: 10px;
+        }
+        /* Error message styling */
+        .error-message {
+            color: red;
+            font-size: 1em;
+            margin-top: 5px;
+        }
+        .success-message {
+            color: green;
+            font-size: 1em;
+            margin-top: 5px;
+        }
+        /* নতুন বাটনের জন্য স্টাইল */
+        .office-use-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        .office-use-btn:hover {
+            background-color: #218838;
+        }
+        .office-use-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .office-use-modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+        }
+        .office-use-modal-content button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        .office-use-modal-content button:hover {
+            background-color: #0056b3;
+        }
+/* Global Styles */
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #1f1c2c, #928dab);
             color: #e0e0e0;
             padding: 20px;
-            min-height: 100vh;
+            position: relative; /* Positioning for absolute elements */
+            min-height: 100vh; /* Ensuring full height */
+            z-index: 1; /* Set a base z-index for the body */
         }
 
-        h1 {
-            color: #f1c40f;
+        /* Marquee Section */
+        .marquee-container {
+            position: fixed; /* Position at the bottom */
+            bottom: 0; /* Align to the bottom */
+            left: 0; /* Align to the left */
+            width: 100%; /* Full width */
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background for the marquee */
+            padding: 10px 0; /* Padding only vertically */
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+            overflow: hidden; /* Hide overflow */
+            white-space: nowrap; /* Prevent wrapping */
+            z-index: 1000; /* High z-index to ensure it stays above other elements */
+        }
+
+        .marquee {
+            display: inline-block; /* Allow inline movement */
+            animation: scroll 35s linear infinite; /* Animation for scrolling */
+            color: #ff6347; /* Tomato color for the text */
+            font-size: 1.5em; /* Size of the marquee text */
+            padding-left: 100%; /* Start from the right edge */
+        }
+
+        /* Keyframes for the scrolling effect */
+        @keyframes scroll {
+            from {
+                transform: translateX(0); /* Start from right edge */
+            }
+            to {
+                transform: translateX(-100%); /* Move to left */
+            }
+        }
+
+footer {
+    background-color: #1a1a1a; /* ডার্ক ব্যাকগ্রাউন্ড */
+    color: #e0e0e0; /* লাইট গ্রে টেক্সট */
+    padding: 30px 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0px -4px 12px rgba(0, 0, 0, 0.5);
+}
+
+footer p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+footer a {
+    color: #76c7c0; /* টিল কালার লিংক */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #ffd700; /* হোভার এ লিংক কালার গোল্ড */
+}
+
+footer .social-icons {
+    display: flex;
+    gap: 20px;
+}
+
+footer .social-icons a {
+    width: 40px;
+    height: 40px;
+    background-color: #333;
+    color: #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+footer .social-icons a:hover {
+    background-color: #76c7c0; /* সোশ্যাল আইকনে টিল হোভার কালার */
+    transform: scale(1.1); /* সামান্য বড় দেখানোর জন্য */
+}
+
+    </style>
+</head>
+<body>
+    <!-- Marquee Section -->
+    <div class="marquee-container">
+        <div class="marquee">
+            সকল কাস্টোডিয়ান এর দৃষ্টি আকর্ষণ করছি, বর্তমানে এটিএম ও সিআরএম মেশিনে টাকা ফেলে রেখে আসার পরিমাণ অনেক বেড়ে গেছে। সবাই আগের সব টাকা ভালো করে বের করবেন এবং ৪ ক্যাসেটে লোড দিবেন। কোন অবস্থায় টাকা ফেলে রেখে আসা যাবেনা।** অফিসের অনুমতি ছাড়া কেউ কোন লোড বাদ দিবেন না।  কোন সমস্যা থাকলে অফিসে যোগাযোগ করবেন।** আপনাদের কাছে চাবি হ্যান্ডওভার এর একটি ফরম্যাট দেয়া আছে। সেটাতে সিগনেচার করে অবশ্যই আজ অফিসে পাঠাবেন। ধন্যবাদ।
+        </div>
+    </div>
+
+</head>
+<body>
+    <h1>FLM Call & Traveling Bill Management System</h1>
+<title>Animation Test</title>
+        <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
             text-align: center;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            background-color: #f0f0f0;
         }
 
-        form {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 2em;
-            margin: 20px auto;
-            max-width: 600px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            color: #1abc9c;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            border-color: #1abc9c;
-            box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
-            outline: none;
-        }
-
-        button {
-            background-color: #6f42c1;
-            color: #fff;
-            padding: 12px 20px;
-            border-radius: 5px;
-            border: none;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-        }
-
-        #thankYouMessage {
-            display: none;
+        header {
             margin-top: 20px;
-            color: #ff0000;
-            font-size: 1.5em;
-            text-align: center;
         }
 
-        footer {
-            background-color: #1a1a1a;
-            color: #e0e0e0;
-            padding: 20px;
-            text-align: center;
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
-        footer a {
-            color: #76c7c0;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            color: #ffd700;
+        .bounce {
+            animation: bounce 1s infinite alternate;
         }
     </style>
 </head>
 <body>
-    <h1>FLM Call & Traveling Bill Management System</h1>
+    <header>
+        <img src="https://i.imgur.com/wdj5VIH.png" alt="Money Plant Logo" class="bounce">
     <form id="dataEntryForm">
         <label for="Date">Date:</label>
         <input type="text" id="Date" name="Date" readonly>

@@ -1,5 +1,6 @@
 
 
+
 <head>
     <meta name="google-adsense-account" content="ca-pub-7325944573928464">
     <meta charset="UTF-8">
@@ -433,7 +434,7 @@ footer .social-icons a:hover {
     <!-- Marquee Section -->
     <div class="marquee-container">
         <div class="marquee">
-            সকল কাস্টোডিয়ান এর দৃষ্টি আকর্ষণ করছি,  **এটিএম ও সিআরএম মেশিনে টাকা কোন অবস্থায় ফেলে রেখে আসা যাবেনা**  । সবাই আগের সব টাকা ভালো করে বের করবেন এবং ৪ ক্যাসেটে লোড দিবেন। কোন অবস্থায় টাকা ফেলে রেখে আসা যাবেনা।** অফিসের অনুমতি ছাড়া কেউ কোন লোড বাদ দিবেন না।  কোন সমস্যা থাকলে অফিসে যোগাযোগ করবেন।**  ধন্যবাদ।
+            সকল কাস্টোডিয়ান এর দৃষ্টি আকর্ষণ করছি, বর্তমানে এটিএম ও সিআরএম মেশিনে টাকা ফেলে রেখে আসার পরিমাণ অনেক বেড়ে গেছে। সবাই আগের সব টাকা ভালো করে বের করবেন এবং ৪ ক্যাসেটে লোড দিবেন। কোন অবস্থায় টাকা ফেলে রেখে আসা যাবেনা।** অফিসের অনুমতি ছাড়া কেউ কোন লোড বাদ দিবেন না।  কোন সমস্যা থাকলে অফিসে যোগাযোগ করবেন।** আপনাদের কাছে চাবি হ্যান্ডওভার এর একটি ফরম্যাট দেয়া আছে। সেটাতে সিগনেচার করে অবশ্যই আজ অফিসে পাঠাবেন। ধন্যবাদ।
         </div>
     </div>
 
@@ -505,20 +506,7 @@ footer .social-icons a:hover {
     <input type="text" id="ATMLOCATION" name="ATMLOCATION" placeholder="ATM Location" readonly />
 
     <label for="TypeOfCall">Type Of Call:</label>
-        <select id="TypeOfCall" name="TypeOfCall" required>
-            <option value="">Select an option</option>
-            <option value="Cash Jam">Cash Jam</option>
-            <option value="Receive Paper">Receive Paper</option>
-            <option value="Down">Down</option>
-            <option value="Engineer Call">Engineer Call</option>
-            <option value="PM">PM</option>
-            <option value="Fast Load">Fast Load</option>
-            <option value="Last Load">Last Load</option>
-            <option value="Return">Return</option>
-            <option value="Manual Cash Jam">Manual Cash Jam</option>
-            <option value="ADC Call">ADC Call</option>
-            <option value="Other’s">Other’s</option>
-        </select>
+    <input type="text" id="TypeOfCall" name="TypeOfCall" placeholder="Type Of Call" required />
 
     <label for="ATMOpenTime">ATM/CRM Open Time:</label>
     <input type="text" id="ATMOpenTime" name="ATMOpenTime" placeholder="HH:MM" required />
@@ -586,10 +574,6 @@ footer .social-icons a:hover {
       } else {
         document.getElementById('ATMLOCATION').value = '';
       }
-        onst inTime = document.getElementById('InTime').value;
-            const outTime = document.getElementById('OutTime').value;
-            const remarksField = document.getElementById('Remarks');
-            const personField = document.getElementById('Person').value;
     });
 
     // Form submission handler

@@ -153,7 +153,11 @@
         <input type="text" id="TravellingAmount" name="TravellingAmount" placeholder="Amount" required>
 
         <label for="PeopleCount">How many people's bills?:</label>
-        <input type="number" id="PeopleCount" name="PeopleCount" placeholder="Number of People" required>
+        <select id="Person" name="Person" required>
+            <option value="">Select an option</option>
+            <option value="1 Person">1 Person</option>
+            <option value="2 Person">2 Person</option>
+        </select>
 
         <label for="Remarks">Remarks:</label>
         <textarea id="Remarks" name="Remarks" placeholder="Enter any remarks"></textarea>

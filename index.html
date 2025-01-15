@@ -258,49 +258,48 @@
     }
 
     function handleSubmit(event) {
-      event.preventDefault();
-      const formError = document.getElementById('formError');
-      formError.textContent = "Processing...";
+  event.preventDefault();
+  const formError = document.getElementById('formError');
+  formError.textContent = "Processing...";
 
-      const formData = {
-        Date: document.getElementById('Date').value,
-        EmployeeID: document.getElementById('JobID').value,
-        ExecutiveName: document.getElementById('ExecutiveName').value,
-        MobileNumber: document.getElementById('MobileNumber').value,
-        Zone: document.getElementById('Zone').value,
-        ATMCRMID: document.getElementById('ATMCRMID').value,
-        ATMLOCATION: document.getElementById('ATMLOCATION').value,
-        TypeOfCall: document.getElementById('TypeOfCall').value,
-        InTime: document.getElementById('InTime').value,
-        OutTime: document.getElementById('OutTime').value,
-        From: document.getElementById('From').value,
-        To: document.getElementById('To').value,
-        Transport: document.getElementById('Transport').value,
-        TravellingAmount: document.getElementById('TravellingAmount').value,
-        Person: document.getElementById('Person').value,
-        Remarks: document.getElementById('Remarks').value
-      };
+  const formData = {
+    Date: document.getElementById('Date').value,
+    EmployeeID: document.getElementById('JobID').value,
+    ExecutiveName: document.getElementById('ExecutiveName').value,
+    MobileNumber: document.getElementById('MobileNumber').value,
+    Zone: document.getElementById('Zone').value,
+    ATMCRMID: document.getElementById('ATMCRMID').value,
+    ATMLOCATION: document.getElementById('ATMLOCATION').value,
+    TypeOfCall: document.getElementById('TypeOfCall').value,
+    InTime: document.getElementById('InTime').value,
+    OutTime: document.getElementById('OutTime').value,
+    From: document.getElementById('From').value,
+    To: document.getElementById('To').value,
+    Transport: document.getElementById('Transport').value,
+    TravellingAmount: document.getElementById('TravellingAmount').value,
+    Person: document.getElementById('Person').value,
+    Remarks: document.getElementById('Remarks').value
+  };
 
-      fetch('https://script.google.com/macros/s/AKfycbzyqExbt9MsLnYJAxU7dhjaKiJUM7xZ6gD_V3otGASoO05anFEwPrOEohy2sAPY1ueLpQ/exec', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      })
-        .then(response => response.json())
-        .then(data => {
-          formError.textContent = data.message; 
-          if(data.success) {
-            document.getElementById('thankYouMessage').style.display = 'block';
-            document.getElementById('dataForm').style.display = 'none';
-          }
-        })
-        .catch((error) => {
-          formError.textContent = 'Submission failed! Please try again later.';
-          console.error('Error:', error);
-        });
-    }
+  fetch('https://script.google.com/macros/s/AKfycbzyqExbt9MsLnYJAxU7dhjaKiJUM7xZ6gD_V3otGASoO05anFEwPrOEohy2sAPY1ueLpQ/exec', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+    .then(response => response.json())
+    .then(data => {
+      formError.textContent = data.message;
+      if(data.success) {
+        document.getElementById('thankYouMessage').style.display = 'block';
+        document.getElementById('dataForm').style.display = 'none';
+      }
+    })
+    .catch((error) => {
+      formError.textContent = 'Submission failed! Please try again later.';
+      console.error('Error:', error);
+    });
 
     // Set current date on load
     document.getElementById('Date').value = new Date().toLocaleDateString();

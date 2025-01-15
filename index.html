@@ -197,8 +197,31 @@
         document.getElementById('ATMLOCATION').value = atmData[atmId] || '';
     });
 
-    document.getElementById('dataEntryForm').addEventListener('submit', async function (event) {
+    document.getElementById('dataEntryForm').addEventListener('submit', function (event) {
     event.preventDefault();
+
+    // কাস্টম ভ্যালিডেশন ফাংশন
+    function validateForm() {
+        const requiredFields = ['EmployeeID', 'ATMCRMID', 'ATMOpenTime', 'ATMCloseTime', 'From', 'To', 'Transport', 'TravellingAmount', 'Person'];
+        let isValid = true;
+
+        requiredFields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (!field.value.trim()) {
+                isValid = false;
+                field.style.border = '2px solid red'; // খালি থাকলে লাল বর্ডার দেখাবে
+            } else {
+                field.style.border = ''; // পূরণ হলে বর্ডার মুছে যাবে
+            }
+        });
+
+        return isValid;
+    }
+
+    if (!validateForm()) {
+        alert('সব ফিল্ড সঠিকভাবে পূরণ করুন।');
+        return; // যদি ফর্ম বৈধ না হয় তবে সাবমিট আটকানো হবে
+    }
 
     const remarksField = document.getElementById('Remarks');
 
@@ -213,9 +236,8 @@
             if (response.ok) {
                 document.getElementById('thankYouMessage').style.display = 'block';
                 document.getElementById('dataEntryForm').style.display = 'none';
-                // 3 সেকেন্ড অপেক্ষা করে হোম পেজে রিডিরেক্ট করা
                 setTimeout(() => {
-                    window.location.href = 'index.html'; // এখানে আপনার হোম পেজের URL দিন
+                    window.location.href = 'index.html'; // হোম পেজে রিডিরেক্ট করুন
                 }, 3000);
             } else {
                 alert('Submission failed. Please try again.');
@@ -226,7 +248,6 @@
         });
     }
 
-    // জিওলোকেশন গ্রহণের চেষ্টা করা
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             const latitude = position.coords.latitude;

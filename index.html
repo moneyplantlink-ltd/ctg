@@ -482,26 +482,27 @@ footer .social-icons a:hover {
         FLM Call & Traveling Bill Management System</h1>
     <meta name="google-adsense-account" content="ca-pub-7325944573928464">
     <form id="myForm" method="post" action="https://script.google.com/macros/s/AKfycby8G8qwhM3s0D4Ws0eTs1AHpSgDWVYy3BG5W5mB_aVC2UiU1ZJGhkp0AigssIDUBlpc-w/exec" onsubmit="handleSubmit(event)">
-        <label for="Date">Date:</label>
-    <input type="text" id="Date" name="Date" placeholder="YYYY-MM-DD" required />
+        <form id="dataEntryForm">
+    <label for="Date">Date:</label>
+    <input type="text" id="Date" name="Date" placeholder="YYYY-MM-DD" required readonly />
 
     <label for="EmployeeID">Employee ID:</label>
     <input type="text" id="EmployeeID" name="EmployeeID" placeholder="Employee ID" required />
 
     <label for="ExecutiveName">Executive Name:</label>
-    <input type="text" id="ExecutiveName" name="ExecutiveName" placeholder="Executive Name" required />
+    <input type="text" id="ExecutiveName" name="ExecutiveName" placeholder="Executive Name" readonly />
 
     <label for="MobileNumber">Mobile Number:</label>
-    <input type="text" id="MobileNumber" name="MobileNumber" placeholder="Mobile Number" required />
+    <input type="text" id="MobileNumber" name="MobileNumber" placeholder="Mobile Number" readonly />
 
     <label for="Zone">Zone:</label>
-    <input type="text" id="Zone" name="Zone" placeholder="Zone" required />
+    <input type="text" id="Zone" name="Zone" placeholder="Zone" readonly />
 
     <label for="ATMCRMID">ATM/CRM ID:</label>
     <input type="text" id="ATMCRMID" name="ATMCRMID" placeholder="ATM/CRM ID" required />
 
     <label for="ATMLOCATION">ATM Location:</label>
-    <input type="text" id="ATMLOCATION" name="ATMLOCATION" placeholder="ATM Location" required />
+    <input type="text" id="ATMLOCATION" name="ATMLOCATION" placeholder="ATM Location" readonly />
 
     <label for="TypeOfCall">Type Of Call:</label>
     <input type="text" id="TypeOfCall" name="TypeOfCall" placeholder="Type Of Call" required />
@@ -529,6 +530,88 @@ footer .social-icons a:hover {
 
     <button type="submit">Submit</button>
   </form>
+
+  <div id="thankYouMessage" class="success-message" style="display: none;">Thank you for your valuable time!</div>
+
+  <script>
+    // Employee data
+    const employeeData = {
+      '144': { name: 'Md. Rubel', zone: 'Head Office', mobile: '01958193400' },
+      '11765': { name: 'Md. Suzon', zone: 'Uttara-1', mobile: '01812345678' }
+    };
+
+    // ATM/CRM ID to ATM Location mapping
+    const atmData = {
+      'ATM001': 'Banani Branch',
+      'ATM002': 'Gulshan-1 Branch',
+      'ATM003': 'Dhanmondi Branch'
+    };
+
+    // Event listener for EmployeeID input to update Executive Name, Zone, and Mobile Number
+    document.getElementById('EmployeeID').addEventListener('input', function () {
+      const employeeId = document.getElementById('EmployeeID').value.trim();
+      const employee = employeeData[employeeId];
+
+      if (employee) {
+        document.getElementById('ExecutiveName').value = employee.name;
+        document.getElementById('Zone').value = employee.zone;
+        document.getElementById('MobileNumber').value = employee.mobile;
+      } else {
+        document.getElementById('ExecutiveName').value = '';
+        document.getElementById('Zone').value = '';
+        document.getElementById('MobileNumber').value = '';
+      }
+    });
+
+    // Event listener for ATMCRMID input to update ATM Location
+    document.getElementById('ATMCRMID').addEventListener('input', function () {
+      const atmId = document.getElementById('ATMCRMID').value.trim();
+      const atmLocation = atmData[atmId];
+
+      if (atmLocation) {
+        document.getElementById('ATMLOCATION').value = atmLocation;
+      } else {
+        document.getElementById('ATMLOCATION').value = '';
+      }
+    });
+
+    // Form submission handler
+    document.getElementById('dataEntryForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const jsonData = {};
+      formData.forEach((value, key) => {
+        jsonData[key] = value;
+      });
+
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbzxMEksLscaLAM7f1hnNxEzpkd0I7qZNrhOSmwpjwZKMI1gyIUSnEswjrKGdYZK2DQf/exec', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: new URLSearchParams(jsonData),
+        });
+
+        const result = await response.text();
+        if (response.ok) {
+          document.getElementById('thankYouMessage').style.display = 'block';
+        } else {
+          alert('Submission failed: ' + result);
+        }
+      } catch (error) {
+        alert('Error: ' + error.message);
+      }
+    });
+
+    // Set current date on load
+    document.getElementById('Date').value = new Date().toLocaleDateString();
+  </script>
+
+</body>
+
+</html>
     <div id="thankYouMessage">Thank you for your valuable time</div>
 
     <div class="button-container">

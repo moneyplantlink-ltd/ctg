@@ -198,50 +198,53 @@
     });
 
     document.getElementById('dataEntryForm').addEventListener('submit', async function (event) {
-        event.preventDefault();
+    event.preventDefault();
 
-        const remarksField = document.getElementById('Remarks');
+    const remarksField = document.getElementById('Remarks');
 
-        function submitForm() {
-            const formData = new FormData(document.getElementById('dataEntryForm'));
-            const jsonData = Object.fromEntries(formData.entries());
+    function submitForm() {
+        const formData = new FormData(document.getElementById('dataEntryForm'));
+        const jsonData = Object.fromEntries(formData.entries());
 
-            fetch('https://script.google.com/macros/s/AKfycbzxMEksLscaLAM7f1hnNxEzpkd0I7qZNrhOSmwpjwZKMI1gyIUSnEswjrKGdYZK2DQf/exec', {
-                method: 'POST',
-                body: new URLSearchParams(jsonData)
-            }).then(response => {
-                if (response.ok) {
-                    document.getElementById('thankYouMessage').style.display = 'block';
-                    document.getElementById('dataEntryForm').style.display = 'none';
-                } else {
-                    alert('Submission failed. Please try again.');
-                }
-            }).catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again later.');
-            });
-        }
+        fetch('https://script.google.com/macros/s/AKfycbzxMEksLscaLAM7f1hnNxEzpkd0I7qZNrhOSmwpjwZKMI1gyIUSnEswjrKGdYZK2DQf/exec', {
+            method: 'POST',
+            body: new URLSearchParams(jsonData)
+        }).then(response => {
+            if (response.ok) {
+                document.getElementById('thankYouMessage').style.display = 'block';
+                document.getElementById('dataEntryForm').style.display = 'none';
+                // 3 সেকেন্ড অপেক্ষা করে হোম পেজে রিডিরেক্ট করা
+                setTimeout(() => {
+                    window.location.href = 'index.html'; // এখানে আপনার হোম পেজের URL দিন
+                }, 3000);
+            } else {
+                alert('Submission failed. Please try again.');
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
+        });
+    }
 
-        // জিওলোকেশন গ্রহণের চেষ্টা করা
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-                const locationString = `Lat: ${latitude}, Long: ${longitude}`;
-                remarksField.value += `\nLocation: ${locationString}`;
-                submitForm();
-            }, function (error) {
-                console.error("Error getting location: ", error);
-                document.getElementById('formError').textContent = "Unable to retrieve location.";
-                submitForm();
-            });
-        } else {
-            console.error("Geolocation not supported by this browser.");
-            document.getElementById('formError').textContent = "Geolocation not supported by your browser.";
+    // জিওলোকেশন গ্রহণের চেষ্টা করা
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const locationString = `Lat: ${latitude}, Long: ${longitude}`;
+            remarksField.value += `\nLocation: ${locationString}`;
             submitForm();
-        }
-    });
-
+        }, function (error) {
+            console.error("Error getting location: ", error);
+            document.getElementById('formError').textContent = "Unable to retrieve location.";
+            submitForm();
+        });
+    } else {
+        console.error("Geolocation not supported by this browser.");
+        document.getElementById('formError').textContent = "Geolocation not supported by your browser.";
+        submitForm();
+    }
+});
     document.getElementById('Date').value = new Date().toISOString().split('T')[0];
 </script>
 

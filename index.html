@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Plant Link Pvt. Ltd. FLM Call & Traveling Bill Management System</title>
+    <meta name="google-adsense-account" content="ca-pub-7325944573928464">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7325944573928464" crossorigin="anonymous"></script>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            color: #e0e0e0;
+            padding: 20px;
+            position: relative;
+            min-height: 100vh;
+            z-index: 1;
+        }
+
+        /* Header Styles */
+        header {
+            margin-top: 20px;
+        }
+
+        header img {
+            width: 350px;
+            height: auto;
+            margin-bottom: 10px;
+            animation: bounce 1.5s infinite;
+        }
+
+        h1 {
+            color: #f1c40f;
+            margin-top: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Form Styles */
+        form {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 2em;
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        form:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #1abc9c;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:placeholder-shown,
+        textarea:placeholder-shown,
+        select:placeholder-shown {
+            animation: pulse 1.5s infinite;
+            border-color: #e74c3c;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #1abc9c;
+            box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
+            outline: none;
+        }
+
+        button {
+            background-color: #6f42c1;
+            color: white;
+            padding: 12px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.5s;
+        }
+
+        button:hover {
+            transform: rotate(10deg);
+        }
+
+        button:active {
+            transform: rotate(-10deg);
+        }
+
+        .button-container {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .button-container button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .modal-content button {
+            margin-top: 10px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 1em;
+            margin-top: 5px;
+        }
+
+        .success-message {
+            color: green;
+            font-size: 1em;
+            margin-top: 5px;
+        }
+
+        .office-use-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .office-use-btn:hover {
+            background-color: #218838;
+        }
+
+        .office-use-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .office-use-modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .office-use-modal-content button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .office-use-modal-content button:hover {
+            background-color: #0056b3;
+        }
+
+        .marquee-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            white-space: nowrap;
+            z-index: 1000;
+        }
+
+        .marquee {
+            display: inline-block;
+            animation: scroll 35s linear infinite;
+            color: #ff6347;
+            font-size: 1.5em;
+            padding-left: 100%;
+        }
+
+        @keyframes scroll {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            padding: 30px 0;
+            width: 100%;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0px -4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        footer p {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        footer a {
+            color: #76c7c0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #ffd700;
+        }
+
+        footer .social-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        footer .social-icons a {
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            color: #e0e0e0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        footer .social-icons a:hover {
+            background-color: #76c7c0;
+            transform: scale(1.1);
+        }
+
+        .popup-text {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.8);
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            z-index: 1000;
+            animation: popup-animation 10s ease-in-out infinite;
+        }
+
+        .popup-text a {
+            color: #FFFF00;
+            text-decoration: none;
+        }
+
+        .popup-text ul:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes popup-animation {
+            0% {
+                transform: translateX(-50%) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                transform: translateX(-50%) scale(1);
+                opacity: 1;
+            }
+            80% {
+                transform: translateX(-50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-50%) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            form {
+                padding: 1.5em;
+            }
+
+            label {
+                font-size: 16px;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            input[type="time"],
+            textarea,
+            select {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 16px;
+                padding: 10px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            form {
+                padding: 1.2em;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 8px 14px;
+            }
+
+            .popup-text {
+                font-size: 14px;
+                width: 95%;
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Marquee Section -->
+    <div class="marquee-container">
+        <div class="marquee">
+            সকল কাস্টোডিয়ান এর দৃষ্টি আকর্ষণ করছি, বর্তমানে এটিএম ও সিআরএম মেশিনে টাকা ফেলে রেখে আসার পরিমাণ অনেক বেড়ে গেছে। সবাই আগের সব টাকা ভালো করে বের করবেন এবং ৪ ক্যাসেটে লোড দিবেন। কোন অবস্থায় টাকা ফেলে রেখে আসা যাবেনা।** অফিসের অনুমতি ছাড়া কেউ কোন লোড বাদ দিবেন না।  কোন সমস্যা থাকলে অফিসে যোগাযোগ করবেন।** আপনাদের কাছে চাবি হ্যান্ডওভার এর একটি ফরম্যাট দেয়া আছে। সেটাতে সিগনেচার করে অবশ্যই আজ অফিসে পাঠাবেন। ধন্যবাদ।
+        </div>
+    </div>
+
+    <header>
+        <img src="https://i.imgur.com/wdj5VIH.png" alt="Money Plant Logo" class="bounce">
+    </header>
+    <h1>Money Plant Link Pvt. Ltd.</h1>
+    <h1>FLM Call & Traveling Bill Management System</h1>
+    <form id="myForm" method="post" action="https://script.google.com/macros/s/AKfycbyZLFLID9UOO3yZpVgSlrq90mtLXy0dnNmwMV-XBQPHwJvkj9eT3l4ezUzsdAn3WB698g/exec" onsubmit="handleSubmit(event)">
+        <label for="Date">Date:</label>
+        <input type="date" id="Date" name="Date" required>
+
+        <label for="EmployeeID">Employee ID:</label>
+        <input type="text" id="JobID" name="JobID" placeholder="Enter Employee ID" required oninput="updateExecutiveNameAndZone()">
+        <div id="EmployeeIDError" class="error-message"></div>
+
+        <label for="ExecutiveName">Executive Name:</label>
+        <input type="text" id="ExecutiveName" name="ExecutiveName" placeholder="Auto-filled based on Employee ID" required readonly>
+
+        <label for="Zone">Zone:</label>
+        <input type="text" id="Zone" name="Zone" placeholder="Auto-filled based on Employee ID" required readonly>
+
+        <label for="ATMCRMID">ATM/CRM ID:</label>
+        <input type="text" id="ATMCRMID" name="ATMCRMID" placeholder="Enter ATM or CRM ID" required oninput="updateATMLocation()">
+        <div id="ATMCRMIDError" class="error-message"></div>
+
+        <label for="ATMLOCATION">ATM Location:</label>
+        <input type="text" id="ATMLOCATION" name="ATMLOCATION" placeholder="Auto-filled based on ATM or CRM ID" required>
+
+        <label for="TypeOfCall">Type Of Call:</label>
+        <select id="TypeOfCall" name="TypeOfCall" required>
+            <option value="">Select an option</option>
+            <option value="Cash Jam">Cash Jam</option>
+            <option value="Receive Paper">Receive Paper</option>
+            <option value="Down">Down</option>
+            <option value="Engineer Call">Engineer Call</option>
+            <option value="PM">PM</option>
+            <option value="Fast Load">Fast Load</option>
+            <option value="Last Load">Last Load</option>
+            <option value="Return">Return</option>
+            <option value="Manual Cash Jam">Manual Cash Jam</option>
+            <option value="ADC Call">ADC Call</option>
+            <option value="Other’s">Other’s</option>
+        </select>
+
+        <label for="InTime">ATM/CRM Open Time:</label>
+        <input type="time" id="InTime" name="InTime" required>
+
+        <label for="OutTime">ATM/CRM Close Time:</label>
+        <input type="time" id="OutTime" name="OutTime" required>
+
+        <label for="From">From:</label>
+        <input type="text" id="From" name="From" placeholder="Enter your bill start location" required>
+
+        <label for="To">To:</label>
+        <input type="text" id="To" name="To" placeholder="Enter your bill End location" required>
+
+        <label for="Transport">Transport:</label>
+        <input type="text" id="Transport" name="Transport" placeholder="Enter What transport are you using?" required>
+
+        <label for="TravellingAmount">Travelling Amount:</label>
+        <input type="text" id="TravellingAmount" name="TravellingAmount" placeholder="Enter Travelling Amount" required>
+
+        <label for="Person">How many people's bills?:</label>
+        <select id="Person" name="Person" required>
+            <option value="">Select an option</option>
+            <option value="1 Person">1 Person</option>
+            <option value="2 Person">2 Person</option>
+        </select>
+
+        <label for="Remarks">Remarks:</label>
+        <textarea id="Remarks" name="Remarks" placeholder="Enter any remarks here" required></textarea>
+
+        <button type="submit">Submit</button>
+        <div id="formError" class="error-message"></div>
+        <div id="formSuccess" class="success-message"></div>
+    </form>
+
+    <div id="thankYouMessage">Thank you for your valuable time</div>
+
+    <div class="button-container">
+        <!-- Button to open the modal -->
+        <button onclick="showCallModal()">Show Your Call</button>
+
+        <!-- Modal for Show Your Call options -->
+        <div id="callModal" class="modal">
+            <div class="modal-content">
+                <p>Select your zone:</p>
+                <button onclick="openCall('Dhaka-1')">Dhaka-1</button>
+                <button onclick="openCall('Dhaka-2')">Dhaka-2</button>
+                <button onclick="closeCallModal()">Close</button>
+            </div>
+        </div>
+
+        <button onclick="window.open('https://docs.google.com/spreadsheets/d/1Zl8JI8J4TPR3ZOFy3kz-aYIpOOBuQBY8n1hBZ1apm4Y/edit?gid=1995041031#gid=1995041031', '_blank')">Ta Bill Show</button>
+        <button onclick="showShortageOptions()">Show Your Shortage</button>
+    </div>
+
+    <!-- Modal for Shortage options -->
+    <div id="shortageModal" class="modal">
+        <div class="modal-content">
+            <p>Select

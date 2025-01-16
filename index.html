@@ -2588,27 +2588,32 @@ footer .social-icons a:hover {
         document.getElementById('MobileNumber').value = employee ? employee.mobile : '';
     });
 
-    document.getElementById('ATMCRMID').addEventListener('input', function () {
+    // Message to display
+const errorMessage = "আপনি যদি DBBL আইডি লেখেন তবে শুধুমাত্র আইডি লিখুন। উদাহরণ: 4444। অথবা যদি আপনি IBBL আইডি লিখলে IBBL+ID, CBBL আইডি লিখলে CBBL+ID, ASIA আইডি লিখলে ASIA+ID, SCB আইডি লিখলে SCB+ID এই ভাবে এন্ট্রি দিতে হবে।";
+
+// Add focus event listener to the ATMCRMID field
+document.getElementById('ATMCRMID').addEventListener('focus', function () {
+    const errorField = document.getElementById('ATMCRMIDError');
+    errorField.textContent = errorMessage; // Display the error message
+});
+
+// Add input event listener to clear or update the error message
+document.getElementById('ATMCRMID').addEventListener('input', function () {
     const atmId = this.value.trim(); // Get the trimmed value of the input
     const atmLocationField = document.getElementById('ATMLOCATION');
     const errorField = document.getElementById('ATMCRMIDError');
-
-    // Check if input is empty
-    if (atmId === '') {
-        errorField.textContent = "আপনি যদি DBBL আইডি লেখেন তবে শুধুমাত্র আইডি লিখুন। উদাহরণ: 4444। অথবা যদি আপনি IBBL আইডি লিখলে IBBL+ID, CBBL আইডি লিখলে CBBL+ID, ASIA আইডি লিখলে ASIA+ID, SCB আইডি লিখলে SCB+ID এই ভাবে এন্ট্রি দিতে হবে।";
-        atmLocationField.value = ''; // Clear the location field if input is empty
-        return; // Stop further execution
-    }
 
     // Set ATMLOCATION value based on atmData mapping
     atmLocationField.value = atmData[atmId] || '';
 
     // Check if location is empty and set the error message
-    if (atmLocationField.value === '') {
-        errorField.textContent = "আপনি যদি DBBL আইডি লেখেন তবে শুধুমাত্র আইডি লিখুন। উদাহরণ: 4444। অথবা যদি আপনি IBBL আইডি লিখলে IBBL+ID, CBBL আইডি লিখলে CBBL+ID, ASIA আইডি লিখলে ASIA+ID, SCB আইডি লিখলে SCB+ID এই ভাবে এন্ট্রি দিতে হবে।";
+    if (atmId === '' || atmLocationField.value === '') {
+        errorField.textContent = errorMessage;
     } else {
         errorField.textContent = ''; // Clear the error message if input is valid
     }
+});
+
 });
 
     document.getElementById('dataEntryForm').addEventListener('submit', function (event) {

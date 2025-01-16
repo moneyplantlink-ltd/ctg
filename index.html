@@ -2591,6 +2591,9 @@ footer .social-icons a:hover {
     document.getElementById('ATMCRMID').addEventListener('input', function () {
         const atmId = this.value.trim();
         document.getElementById('ATMLOCATION').value = atmData[atmId] || '';
+         if (atmLocation === '') {
+                document.getElementById('ATMCRMIDError').textContent = "আপনি যদি DBBL আইডি লেখেন তবে শুধুমাত্র আইডি লিখুন। উদাহরণ: 4444. অথবা যদি আপনি IBBL আইডি লিখলে IBBL+ID, CBBL আইডি লিখলে CBBL+ID, ASIA  আইডি লিখলে ASIA+ID, SCB আইডি লিখলে SCB+ID এই ভাবে এন্ট্রি দিতে হবে।.";
+            } else {
     });
 
     document.getElementById('dataEntryForm').addEventListener('submit', function (event) {

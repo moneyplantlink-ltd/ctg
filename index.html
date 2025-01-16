@@ -3,6 +3,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2580,43 +2581,22 @@ footer .social-icons a:hover {
 '9268': 'UTTARA ADHUNIK MC CRM-2',
     };
 
-    // Add focus event listener for ATMCRMID
-document.getElementById('ATMCRMID').addEventListener('focus', function () {
-    const errorField = document.getElementById('ATMCRMIDError');
-    errorField.textContent = "আপনি যদি DBBL আইডি লেখেন তবে শুধুমাত্র আইডি লিখুন। উদাহরণ: 4444। অথবা যদি আপনি IBBL আইডি লিখলে IBBL+ID, CBBL আইডি লিখলে CBBL+ID, ASIA আইডি লিখলে ASIA+ID, SCB আইডি লিখলে SCB+ID এই ভাবে এন্ট্রি দিতে হবে।";
-});
+    document.getElementById('EmployeeID').addEventListener('input', function () {
+        const employeeId = this.value.trim();
+        const employee = employeeData[employeeId];
 
-// Add input event listener for EmployeeID
-document.getElementById('EmployeeID').addEventListener('input', function () {
-    const employeeId = this.value.trim();
-    const employee = employeeData[employeeId];
+        document.getElementById('ExecutiveName').value = employee ? employee.name : '';
+        document.getElementById('Zone').value = employee ? employee.zone : '';
+        document.getElementById('MobileNumber').value = employee ? employee.mobile : '';
+    });
 
-    document.getElementById('ExecutiveName').value = employee ? employee.name : '';
-    document.getElementById('Zone').value = employee ? employee.zone : '';
-    document.getElementById('MobileNumber').value = employee ? employee.mobile : '';
-});
+    document.getElementById('ATMCRMID').addEventListener('input', function () {
+        const atmId = this.value.trim();
+        document.getElementById('ATMLOCATION').value = atmData[atmId] || '';
+    });
 
-// Add input event listener for ATMCRMID
-document.getElementById('ATMCRMID').addEventListener('input', function () {
-    const atmId = this.value.trim();
-    const atmLocationField = document.getElementById('ATMLOCATION');
-    const errorField = document.getElementById('ATMCRMIDError');
-
-    // Update ATMLOCATION based on atmData
-    atmLocationField.value = atmData[atmId] || '';
-
-    // Clear error message if valid input
-    if (atmLocationField.value !== '') {
-        errorField.textContent = '';
-    }
-});
-
-// Add submit event listener for dataEntryForm
-document.getElementById('dataEntryForm').addEventListener('submit', function (event) {
+    document.getElementById('dataEntryForm').addEventListener('submit', function (event) {
     event.preventDefault();
-    alert("Form submitted successfully!");
-});
-
 
     // কাস্টম ভ্যালিডেশন ফাংশন
     function validateForm() {

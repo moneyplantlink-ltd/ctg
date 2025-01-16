@@ -2589,12 +2589,20 @@ footer .social-icons a:hover {
     });
 
     document.getElementById('ATMCRMID').addEventListener('input', function () {
-        const atmId = this.value.trim();
-        document.getElementById('ATMLOCATION').value = atmData[atmId] || '';
-         if (atmLocation === '') {
-                document.getElementById('ATMCRMIDError').textContent = "আপনি যদি DBBL আইডি লেখেন তবে শুধুমাত্র আইডি লিখুন। উদাহরণ: 4444. অথবা যদি আপনি IBBL আইডি লিখলে IBBL+ID, CBBL আইডি লিখলে CBBL+ID, ASIA  আইডি লিখলে ASIA+ID, SCB আইডি লিখলে SCB+ID এই ভাবে এন্ট্রি দিতে হবে।.";
-            } else {
-    });
+    const atmId = this.value.trim(); // Get the trimmed value of the input
+    const atmLocationField = document.getElementById('ATMLOCATION');
+    const errorField = document.getElementById('ATMCRMIDError');
+
+    // Set ATMLOCATION value based on atmData mapping
+    atmLocationField.value = atmData[atmId] || '';
+
+    // Check if location is empty and set the error message
+    if (atmLocationField.value === '') {
+        errorField.textContent = "আপনি যদি DBBL আইডি লেখেন তবে শুধুমাত্র আইডি লিখুন। উদাহরণ: 4444। অথবা যদি আপনি IBBL আইডি লিখলে IBBL+ID, CBBL আইডি লিখলে CBBL+ID, ASIA আইডি লিখলে ASIA+ID, SCB আইডি লিখলে SCB+ID এই ভাবে এন্ট্রি দিতে হবে।";
+    } else {
+        errorField.textContent = ''; // Clear the error message
+    }
+});
 
     document.getElementById('dataEntryForm').addEventListener('submit', function (event) {
     event.preventDefault();

@@ -2590,22 +2590,9 @@ footer .social-icons a:hover {
     });
 
     document.getElementById('ATMCRMID').addEventListener('input', function () {
-    const atmId = this.value.trim(); // Get the input value and trim spaces
-    const atmLocationField = document.getElementById('ATMLOCATION');
-    const errorField = document.getElementById('ATMCRMIDError');
-    
-    // Get the location from atmData or set empty if not found
-    const atmLocation = atmData[atmId] || '';
-    atmLocationField.value = atmLocation; // Update ATMLOCATION field
-
-    // Check if location is empty and show the error message
-    if (atmLocation === '') {
-        errorField.textContent = "আপনি যদি DBBL আইডি লেখেন তবে শুধুমাত্র আইডি লিখুন। উদাহরণ: 4444। অথবা যদি আপনি IBBL আইডি লিখলে IBBL+ID, CBBL আইডি লিখলে CBBL+ID, ASIA আইডি লিখলে ASIA+ID, SCB আইডি লিখলে SCB+ID এই ভাবে এন্ট্রি দিতে হবে।";
-    } else {
-        errorField.textContent = ''; // Clear the error message if input is valid
-    }
-});
-
+        const atmId = this.value.trim();
+        document.getElementById('ATMLOCATION').value = atmData[atmId] || '';
+    });
 
     document.getElementById('dataEntryForm').addEventListener('submit', function (event) {
     event.preventDefault();

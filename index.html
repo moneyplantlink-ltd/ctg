@@ -2682,19 +2682,21 @@ footer .social-icons a:hover {
 </script>
 
 </body>
-    <script>
-    // Showing message for Employee ID
-    document.getElementById("EmployeeID").addEventListener("input", function () {
-        alert(
-            "এখানে Employee ID এন্ট্রি দেওয়ার সময় সামনের 0 বাদ দিয়ে দিতে হবে। উদাহরণ: যদি Employee ID 01046 হয় তবে 1046 এন্ট্রি দিতে হবে।"
-        );
+<script>
+    // Employee ID Message Display
+    document.getElementById("EmployeeID").addEventListener("focus", function () {
+        document.getElementById("employeeIdMessage").style.display = "block";
+    });
+    document.getElementById("EmployeeID").addEventListener("blur", function () {
+        document.getElementById("employeeIdMessage").style.display = "none";
     });
 
-    // Showing message for ATM/CRM ID
+    // ATM/CRM ID Message Display
     document.getElementById("ATMCRMID").addEventListener("focus", function () {
-        alert(
-            "আপনি যদি DBBL আইডি লেখেন তবে শুধুমাত্র আইডি লিখুন। উদাহরণ: 4444। অথবা যদি আপনি IBBL আইডি লেখেন তবে IBBL+ID, CBBL আইডি লিখেন তবে CBBL+ID, SCB আইডি লিখেন তবে SCB+ID এই ভাবে এন্ট্রি দিতে হবে।"
-        );
+        document.getElementById("atmCrmIdMessage").style.display = "block";
+    });
+    document.getElementById("ATMCRMID").addEventListener("blur", function () {
+        document.getElementById("atmCrmIdMessage").style.display = "none";
     });
 </script>
 

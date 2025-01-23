@@ -2610,6 +2610,10 @@ footer .social-icons a:hover {
         const atmId = this.value.trim();
         document.getElementById('ATMLOCATION').value = atmData[atmId] || '';
     });
+        document.getElementById("howManyPeople").addEventListener("input", function () {
+      const people = this.value;
+      document.getElementById("remarks").value = `${people} people's bills recorded.`;
+    });
 
     document.getElementById('dataEntryForm').addEventListener('submit', function (event) {
     event.preventDefault();

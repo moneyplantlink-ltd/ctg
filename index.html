@@ -227,62 +227,38 @@ button:active {
             width: 100%;
             text-align: center;
         }
-        #thankYouMessage {
-            display: none;
-            margin-top: 20px;
-            color: #ff0000;
-            font-size: 3.2em;
-            position: relative;
-        }
-        .button-container {
-            margin: 20px;
-            text-align: center;
-        }
-        .button-container button {
-            background-color: #007bff;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            font-size: 1em;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        .button-container button:hover {
-            background-color: #0056b3;
-        }
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-        .modal-content {
-            background-color: #fff;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 400px;
-        }
-        .modal-content button {
-            margin-top: 10px;
-        }
-        /* Error message styling */
-        .error-message {
-            color: red;
-            font-size: 1em;
-            margin-top: 5px;
-        }
-        .success-message {
-            color: green;
-            font-size: 1em;
-            margin-top: 5px;
-        }
+        #thankYouPopup {
+    z-index: 1000;
+    animation: popupFadeIn 0.5s ease-in-out;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3); /* সুন্দর গ্রেডিয়েন্ট ব্যাকগ্রাউন্ড */
+    border: 3px solid #ffffff; /* সাদা বর্ডার */
+    color: white;
+}
+
+#thankYouPopup h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* পাঠ্যের জন্য শ্যাডো */
+}
+
+#thankYouPopup p {
+    font-size: 18px;
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
         /* নতুন বাটনের জন্য স্টাইল */
         .office-use-btn {
             background-color: #28a745;
@@ -2720,9 +2696,10 @@ const formattedDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFul
 document.getElementById('Date').value = formattedDate; // 'Date' ফিল্ডে নতুন ফরম্যাটে তারিখ
 
 </script>
-<div id="thankYouPopup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #ff9a9e, #fad0c4); padding: 20px 30px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; border-radius: 15px; color: white; font-family: 'Arial', sans-serif;">
-    <h2 style="margin: 0; font-size: 24px;">🎉 Thank You!</h2>
-    <p style="margin: 10px 0 0; font-size: 18px;">Your submission was successful.</p>
+<div id="thankYouPopup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #f6d365, #fda085); padding: 20px 30px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); text-align: center; border-radius: 15px; color: white; font-family: 'Arial', sans-serif;">
+    <h2 style="margin: 0; font-size: 28px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); color: #ffffff;">🎉 Thank You!</h2>
+    <p style="margin: 10px 0 0; font-size: 18px; color: #ffffff; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">Your submission was successful!</p>
 </div>
+
 </body>
 </html>

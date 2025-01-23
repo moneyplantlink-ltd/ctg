@@ -2597,90 +2597,105 @@ footer .social-icons a:hover {
 '9302': 'MEGHNA KNIT FT CRM-2 GAZI',
     };
 
-    document.getElementById('EmployeeID').addEventListener('input', function () {
-        const employeeId = this.value.trim();
-        const employee = employeeData[employeeId];
+document.getElementById('EmployeeID').addEventListener('input', function () {
+    const employeeId = this.value.trim();
+    const employee = employeeData[employeeId];
 
-        document.getElementById('ExecutiveName').value = employee ? employee.name : '';
-        document.getElementById('Zone').value = employee ? employee.zone : '';
-        document.getElementById('MobileNumber').value = employee ? employee.mobile : '';
-    });
+    document.getElementById('ExecutiveName').value = employee ? employee.name : '';
+    document.getElementById('Zone').value = employee ? employee.zone : '';
+    document.getElementById('MobileNumber').value = employee ? employee.mobile : '';
+});
 
-    document.getElementById('ATMCRMID').addEventListener('input', function () {
-        const atmId = this.value.trim();
-        document.getElementById('ATMLOCATION').value = atmData[atmId] || '';
-    });
+document.getElementById('ATMCRMID').addEventListener('input', function () {
+    const atmId = this.value.trim();
+    document.getElementById('ATMLOCATION').value = atmData[atmId] || '';
+});
 
-    document.getElementById('dataEntryForm').addEventListener('submit', function (event) {
-    event.preventDefault();
+document.getElementById('dataEntryForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // ফর্ম সাবমিশন আটকানো হয়েছে
 
-    // কাস্টম ভ্যালিডেশন ফাংশন
-    function validateForm() {
-        const requiredFields = ['EmployeeID', 'ATMCRMID', 'ATMOpenTime', 'ATMCloseTime', 'From', 'To', 'Transport', 'TravellingAmount', 'Person'];
-        let isValid = true;
-
-        requiredFields.forEach(fieldId => {
-            const field = document.getElementById(fieldId);
-            if (!field.value.trim()) {
-                isValid = false;
-                field.style.border = '2px solid red'; // খালি থাকলে লাল বর্ডার দেখাবে
-            } else {
-                field.style.border = ''; // পূরণ হলে বর্ডার মুছে যাবে
-            }
-        });
-
-        return isValid;
-    }
-
+    // ফর্ম ভ্যালিডেশন
     if (!validateForm()) {
         alert('সব ফিল্ড সঠিকভাবে পূরণ করুন।');
-        return; // যদি ফর্ম বৈধ না হয় তবে সাবমিট আটকানো হবে
+        return;
     }
 
+    // "How many people's bills?" থেকে ডাটা এনে Remarks ফিল্ড পূরণ
+    const howManyPeople = document.getElementById('Person').value.trim();  // 'howManyPeople' পরিবর্তন করে 'Person'
     const remarksField = document.getElementById('Remarks');
+    remarksField.value = howManyPeople 
+        ? `${howManyPeople} people's bills recorded.` 
+        : ''; // যদি ইনপুট খালি থাকে
 
-    function submitForm() {
-        const formData = new FormData(document.getElementById('dataEntryForm'));
-        const jsonData = Object.fromEntries(formData.entries());
-
-        fetch('https://script.google.com/macros/s/AKfycbzxMEksLscaLAM7f1hnNxEzpkd0I7qZNrhOSmwpjwZKMI1gyIUSnEswjrKGdYZK2DQf/exec', {
-            method: 'POST',
-            body: new URLSearchParams(jsonData)
-        }).then(response => {
-            if (response.ok) {
-                document.getElementById('thankYouMessage').style.display = 'block';
-                document.getElementById('dataEntryForm').style.display = 'none';
-                setTimeout(() => {
-                    window.location.href = 'index.html'; // হোম পেজে রিডিরেক্ট করুন
-                }, 3000);
-            } else {
-                alert('Submission failed. Please try again.');
-            }
-        }).catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again later.');
-        });
-    }
-
+    // Geolocation সহ ফর্ম সাবমিশন
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             const locationString = `Lat: ${latitude}, Long: ${longitude}`;
-            remarksField.value += `\nLocation: ${locationString}`;
+            remarksField.value += `\nLocation: ${locationString}`;  // নতুন লাইনে location অ্যাড করা
             submitForm();
         }, function (error) {
             console.error("Error getting location: ", error);
-            document.getElementById('formError').textContent = "Unable to retrieve location.";
+            document.getElementById('formError').textContent = error.message || "Unable to retrieve location.";  // ত্রুটি বার্তা উন্নত
             submitForm();
         });
     } else {
         console.error("Geolocation not supported by this browser.");
-        document.getElementById('formError').textContent = "Geolocation not supported by your browser.";
+        document.getElementById('formError').textContent = "Geolocation not supported by your browser.";  // জিওলোকেশন না থাকলে ত্রুটি বার্তা
         submitForm();
     }
 });
-    document.getElementById('Date').value = new Date().toISOString().split('T')[0];
+
+// ভ্যালিডেশন ফাংশন
+function validateForm() {
+    const requiredFields = ['EmployeeID', 'ATMCRMID', 'ATMOpenTime', 'ATMCloseTime', 'From', 'To', 'Transport', 'TravellingAmount', 'Person'];
+    let isValid = true;
+
+    requiredFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (!field.value.trim()) {
+            isValid = false;
+            field.style.border = '2px solid red'; // খালি থাকলে লাল বর্ডার দেখাবে
+        } else {
+            field.style.border = ''; // পূরণ হলে বর্ডার মুছে যাবে
+        }
+    });
+
+    return isValid;
+}
+
+// সাবমিশন ফাংশন
+function submitForm() {
+    const formData = new FormData(document.getElementById('dataEntryForm'));
+    const jsonData = Object.fromEntries(formData.entries());
+
+    fetch('https://script.google.com/macros/s/AKfycbzxMEksLscaLAM7f1hnNxEzpkd0I7qZNrhOSmwpjwZKMI1gyIUSnEswjrKGdYZK2DQf/exec', {
+        method: 'POST',
+        body: new URLSearchParams(jsonData)
+    }).then(response => {
+        if (response.ok) {
+            document.getElementById('thankYouMessage').style.display = 'block';
+            document.getElementById('dataEntryForm').reset(); // ফর্ম রিসেট
+            const fields = document.querySelectorAll('input, select, textarea');
+            fields.forEach(field => field.style.border = '');  // রিসেট বর্ডার স্টাইল
+            setTimeout(() => {
+                window.location.href = 'index.html'; // হোম পেজে রিডিরেক্ট
+            }, 3000);
+        } else {
+            alert('Submission failed. Please try again later.');
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again later.');
+    });
+}
+
+// ডেট ফিল্ডে বর্তমান তারিখ সেট করুন
+const today = new Date();
+const formattedDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+document.getElementById('Date').value = formattedDate; // 'Date' ফিল্ডে নতুন ফরম্যাটে তারিখ
+
 </script>
 
 </body>
